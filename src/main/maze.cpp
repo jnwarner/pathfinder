@@ -15,16 +15,33 @@ maze::maze(const int height, const int width) {
     for (int i{0}; i < rows; i++)
         mazeArray[i] = new cell [cols];
 
-    // Set walls of maze
+    // Set all cells to walls
     for (int i{0}; i < rows; i++)
         for (int j{0}; j < cols; j++)
-            if (i == 0 || (i == rows - 1) || j == 0 || (j = cols - 1))
-                mazeArray[i][j].isWall = true;
+            mazeArray[i][j].isWall = true;
+
+    std::cout << "Before generation:" << std::endl;
+    log();
+
+    generate();
+
+    std::cout << "After generation:" << std::endl;
+    log();
 }
 
 bool maze::generate() {
     bool generateSuccess{false};
+
+    srand(time(NULL));
+
+    // Generate first point from which to create maze
+    int randRow = rand() % (this->rows - 1) + 1;
+    int randCol = rand() % (this->cols - 1) + 1;
+
+    mazeArray[randRow][randCol].isWall = false;
+
     // TODO: Generate maze using depth-first search
+
     return generateSuccess;
 }
 
@@ -34,5 +51,9 @@ bool maze::clear() {
 }
 
 void maze::log() {
-    // TODO: implement maze output structure, consider ASCII options
+    for (int i{0}; i < rows; i++) {
+        for (int j{0}; j < cols; j++)
+            std::cout << (mazeArray[i][j].isWall ? "1  " : "0  ");
+        std::cout << std::endl;
+    }
 }

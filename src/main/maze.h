@@ -5,6 +5,12 @@
 #ifndef PATHFINDER_MAZE_H
 #define PATHFINDER_MAZE_H
 
+#include <cstdlib>
+#include <iostream>
+#include <time.h>
+
+enum directions{up = 1, right = 2, down = 3, left = 4};
+
 struct cell {
     bool isWall;
     bool visited;
