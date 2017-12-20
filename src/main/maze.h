@@ -8,7 +8,7 @@
 #include <iostream>
 #include <random>
 
-enum directions{up = 1, right = 2, down = 3, left = 4};
+enum direction{UP = 1, RIGHT = 2, DOWN = 3, LEFT = 4};
 
 struct cell {
     bool isWall;

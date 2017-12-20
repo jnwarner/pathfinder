@@ -30,10 +30,11 @@ bool maze::generate() {
 
     std::uniform_int_distribution<> row(0, rows);
     std::uniform_int_distribution<> col(0, cols);
+    std::uniform_int_distribution<> dir(UP, LEFT);
 
-    std::cout << "Row " << row(mt) << " Col " << col(mt) << std::endl;
+    std::cout << "Row " << row(mt) << " Col " << col(mt) << " Dir " << dir(mt) << std::endl;
 
-    // TODO: Generate maze using depth-first search
+//    while (generateSuccess)
 
     return generateSuccess;
 }

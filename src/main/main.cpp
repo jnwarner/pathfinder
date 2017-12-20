@@ -5,7 +5,8 @@
 int main() {
     maze testMaze;
 
-    testMaze.generate();
+    for (int i{0}; i < 10; i++)
+        testMaze.generate();
 
     return EXIT_SUCCESS;
 }
