@@ -5,5 +5,7 @@
 int main() {
     maze testMaze;
 
+    testMaze.generate();
+
     return EXIT_SUCCESS;
 }

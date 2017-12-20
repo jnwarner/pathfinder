@@ -19,26 +19,19 @@ maze::maze(const int height, const int width) {
     for (int i{0}; i < rows; i++)
         for (int j{0}; j < cols; j++)
             mazeArray[i][j].isWall = true;
-
-    std::cout << "Before generation:" << std::endl;
-    log();
-
-    generate();
-
-    std::cout << "After generation:" << std::endl;
-    log();
 }
 
 bool maze::generate() {
+
     bool generateSuccess{false};
 
-    srand(time(NULL));
+    std::random_device rd;
+    std::mt19937 mt(rd());
 
-    // Generate first point from which to create maze
-    int randRow = rand() % (this->rows - 1) + 1;
-    int randCol = rand() % (this->cols - 1) + 1;
+    std::uniform_int_distribution<> row(0, rows);
+    std::uniform_int_distribution<> col(0, cols);
 
-    mazeArray[randRow][randCol].isWall = false;
+    std::cout << "Row " << row(mt) << " Col " << col(mt) << std::endl;
 
     // TODO: Generate maze using depth-first search
 

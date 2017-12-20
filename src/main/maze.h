@@ -5,9 +5,8 @@
 #ifndef PATHFINDER_MAZE_H
 #define PATHFINDER_MAZE_H
 
-#include <cstdlib>
 #include <iostream>
-#include <time.h>
+#include <random>
 
 enum directions{up = 1, right = 2, down = 3, left = 4};
 
