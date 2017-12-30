@@ -7,6 +7,8 @@
 
 #include <iostream>
 #include <random>
+#include <typeinfo>
+#include <stack>
 
 enum direction{UP = 1, RIGHT = 2, DOWN = 3, LEFT = 4};
 
@@ -21,9 +23,14 @@ private:
     cell **mazeArray;
     int rows;
     int cols;
+    int rowStart;
+    int colStart;
+    int rowFinal;
+    int colFinal;
 public:
     maze(const int height = 10, const int width = 10);
-    bool generate();
+    void generate();
+    void recursion(const int row, const int col);
     bool clear();
     void log();
     // TODO: Consider other needs for maze

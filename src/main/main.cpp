@@ -3,10 +3,12 @@
 #include "maze.h"
 
 int main() {
-    maze testMaze;
+    maze testMaze(45, 45);
 
-    for (int i{0}; i < 10; i++)
-        testMaze.generate();
+    testMaze.generate();
+
+    std::cout << "Logging maze" << std::endl;
+    testMaze.log();
 
     return EXIT_SUCCESS;
 }
