@@ -3,6 +3,8 @@
 #include "maze.h"
 
 int main() {
+    std::srand(std::time(0));
+
     maze testMaze(45, 45);
 
     testMaze.generate();

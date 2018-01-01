@@ -27,35 +27,52 @@ void maze::generate() {
     std::mt19937 mt(rd());
 
     std::uniform_int_distribution<> rowGen(1, rows - 1);
-    std::uniform_int_distribution<> colGen(1, cols - 1);
 
 
     int randRow = rowGen(mt);
-    int randCol = colGen(mt);
 
-    while (randRow % 2 == 0 || randCol % 2 == 0) {
+    while (randRow % 2 == 0) {
         randRow = rowGen(mt);
-        randCol = colGen(mt);
     }
 
-    mazeArray[randRow][randCol].isWall = false;
+    mazeArray[randRow][1].isWall = false;
 
     rowStart = randRow;
-    colStart = randCol;
+    colStart = 1;
 
-    recursion(randRow, randCol);
+    recursion(rowStart, colStart);
+
+    colFinal = cols - 2;
+
+    for (int i = 1; i < rows; i++) {
+        if (mazeArray[i][colFinal - 1].isWall && mazeArray[i - 1][colFinal].isWall) {
+            rowFinal = i;
+            break;
+        } else if (mazeArray[i - 1][colFinal].isWall && mazeArray[i + 1][colFinal].isWall) {
+            rowFinal = i;
+            break;
+        } else if (mazeArray[i][colFinal - 1].isWall && mazeArray[i + 1][colFinal].isWall) {
+            rowFinal = i;
+            break;
+        } else continue;
+    }
 
     return;
 }
 
 void maze::recursion(const int row, const int col) {
+
     std::vector<int> dirVector;
 
     // Add directions to vector
     for (int dir = UP; dir <= LEFT; dir++) dirVector.push_back(dir);
 
+    std::random_device r;
+    std::seed_seq seed{r(), r(), r(), r(), r(), r(), r(), r()};
+    std::mt19937 eng(seed);
+
     // Shuffle vector
-    std::random_shuffle ( dirVector.begin(), dirVector.end() );
+    std::shuffle(dirVector.begin(), dirVector.end(), eng);
 
     // Recursively generate maze
     for (auto& dir : dirVector) {
@@ -66,8 +83,6 @@ void maze::recursion(const int row, const int col) {
                 if (mazeArray[row - 2][col].isWall) {
                     mazeArray[row - 1][col].isWall = false;
                     mazeArray[row - 2][col].isWall = false;
-                    rowFinal = row - 2;
-                    colFinal = col;
                     recursion(row - 2, col);
                 }
                 break;
@@ -77,8 +92,6 @@ void maze::recursion(const int row, const int col) {
                 if (mazeArray[row][col + 2].isWall) {
                     mazeArray[row][col + 1].isWall = false;
                     mazeArray[row][col + 2].isWall = false;
-                    rowFinal = row;
-                    colFinal = col + 2;
                     recursion(row, col + 2);
                 }
                 break;
@@ -88,8 +101,6 @@ void maze::recursion(const int row, const int col) {
                 if (mazeArray[row + 2][col].isWall) {
                     mazeArray[row + 1][col].isWall = false;
                     mazeArray[row + 2][col].isWall = false;
-                    rowFinal = row + 2;
-                    colFinal = col;
                     recursion(row + 2, col);
                 }
                 break;
@@ -99,8 +110,6 @@ void maze::recursion(const int row, const int col) {
                 if (mazeArray[row][col - 2].isWall) {
                     mazeArray[row][col - 1].isWall = false;
                     mazeArray[row][col - 2].isWall = false;
-                    rowFinal = row;
-                    colFinal = col - 2;
                     recursion(row, col - 2);
                 }
                 break;
