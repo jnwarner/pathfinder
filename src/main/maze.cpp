@@ -42,19 +42,27 @@ void maze::generate() {
 
     recursion(rowStart, colStart);
 
+    rowFinal = -1;
     colFinal = cols - 2;
 
-    for (int i = 1; i < rows; i++) {
-        if (mazeArray[i][colFinal - 1].isWall && mazeArray[i - 1][colFinal].isWall) {
-            rowFinal = i;
-            break;
-        } else if (mazeArray[i - 1][colFinal].isWall && mazeArray[i + 1][colFinal].isWall) {
-            rowFinal = i;
-            break;
-        } else if (mazeArray[i][colFinal - 1].isWall && mazeArray[i + 1][colFinal].isWall) {
-            rowFinal = i;
-            break;
-        } else continue;
+    // Get maze end
+    for (colFinal; colFinal > 1; colFinal--) {
+        for (int i = 1; i < rows - 1; i++) {
+            if (mazeArray[i][colFinal - 1].isWall && mazeArray[i - 1][colFinal].isWall && mazeArray[i][colFinal + 1].isWall) {
+                rowFinal = i;
+                break;
+            } else if (mazeArray[i - 1][colFinal].isWall && mazeArray[i][colFinal + 1].isWall && mazeArray[i + 1][colFinal].isWall) {
+                rowFinal = i;
+                break;
+            } else if (mazeArray[i][colFinal - 1].isWall && mazeArray[i + 1][colFinal].isWall && mazeArray[i][colFinal + 1].isWall) {
+                rowFinal = i;
+                break;
+            } else if (mazeArray[i][colFinal - 1].isWall && mazeArray[i + 1][colFinal].isWall && mazeArray[i - 1][colFinal].isWall) {
+                rowFinal = i;
+                break;
+            }
+        }
+        if (rowFinal > 0) break;
     }
 
     return;
@@ -117,9 +125,17 @@ void maze::recursion(const int row, const int col) {
     }
 }
 
-bool maze::clear() {
-    // TODO: Clear maze, and set to default
-    return false;
+void maze::clear() {
+    for (int i = 0; i < rows; i++)
+        for (int j = 0; j < cols; j++)
+            mazeArray[i][j].isWall = true;
+
+    rowStart = NULL;
+    colStart = NULL;
+    rowFinal = NULL;
+    colFinal = NULL;
+
+    return;
 }
 
 void maze::log() {

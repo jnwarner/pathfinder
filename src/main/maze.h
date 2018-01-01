@@ -31,7 +31,7 @@ public:
     maze(const int height = 10, const int width = 10);
     void generate();
     void recursion(const int row, const int col);
-    bool clear();
+    void clear();
     void log();
     // TODO: Consider other needs for maze
 };
