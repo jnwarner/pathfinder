@@ -5,17 +5,22 @@
 int main() {
     int testCounter = 1;
 
-    maze testMaze(35, 35);
+    maze testMaze(41, 41);
 
+    // Simulation loop
     while (testCounter <= 15) {
+        // Generate maze structure
         testMaze.generate();
 
+        // Log maze
         std::cout << "Logging maze " << testCounter << std::endl;
-        testCounter++;
         testMaze.log();
+        // Clear for next generation
         testMaze.clear();
+        testCounter++;
         std::cout << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        // Sleep for output formatting
+        std::this_thread::sleep_for(std::chrono::milliseconds(5000));
     }
 
     return EXIT_SUCCESS;
