@@ -3,4 +3,4 @@ project(pathfinder)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(pathfinder src/main/main.cpp src/main/maze.cpp src/main/maze.h)
+add_executable(pathfinder src/main/main.cpp src/main/maze.cpp src/main/maze.h src/main/pathfinder.cpp src/main/pathfinder.h)
